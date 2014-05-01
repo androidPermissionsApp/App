@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Permission Program</string>
+    <string name="view_permissions">View the permissions used by apps on your phone</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
