@@ -1,16 +1,9 @@
 package com.example.permissionapp;
 
-import java.util.List;
-
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,30 +61,5 @@ public class DisplayPermissionsActivity extends ActionBarActivity {
 			return rootView;
 		}
 	}
-	
-	public void getPermissions(){
-		PackageManager pm = getPackageManager();
-		List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 
-		for (ApplicationInfo applicationInfo : packages) {
-		   Log.d("test", "App: " + applicationInfo.name + " Package: " + applicationInfo.packageName);
-
-		   try {
-		      PackageInfo packageInfo = pm.getPackageInfo(applicationInfo.packageName, PackageManager.GET_PERMISSIONS);
-
-		      //Get Permissions
-		      String[] requestedPermissions = packageInfo.requestedPermissions;
-
-		      if(requestedPermissions != null) {
-		         for (int i = 0; i < requestedPermissions.length; i++) {
-		            Log.d("test", requestedPermissions[i]);
-		         }
-		      }
-		   } catch (NameNotFoundException e) {
-		      e.printStackTrace();
-		   }
-		}
-		
-	}
-	
 }
