@@ -9,8 +9,18 @@
     tools:context="com.example.permissionapp.MainActivity$PlaceholderFragment" >
 
     <TextView
+        android:id="@+id/buttonInstructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/button_instructions" />
+
+    <Button
+        android:id="@+id/permissions_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonInstructions"
+        android:layout_below="@+id/buttonInstructions"
+        android:text="@string/show_permissions" 
+        android:onClick="sendMessage"/>
 
 </RelativeLayout>
