@@ -1,8 +1,8 @@
 package com.example.permissionapp;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -10,12 +10,13 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class DisplayPermissionsActivity extends ActionBarActivity {
 
@@ -28,7 +29,22 @@ public class DisplayPermissionsActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		//Intent intent = getIntent();
+	//	List<String> testL = new ArrayList<String>();
+	//	testL.add("testString");
+	//	testL.add("secondTestThing");
+	//	testL.add("last string");
+	//	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
+	//	        android.R.layout.simple_list_item_1, testL);
+	//	ListView listView = (ListView) findViewById(R.id.listview);
+	//	listView.setAdapter(adapter);
+		
+		
+		
+		//List<String> appPermissions = getPermissions(); 
+		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
+		//        android.R.layout.simple_list_item_1, appPermissions);
+		//ListView listView = (ListView) findViewById(R.id.listview);
+		//listView.setAdapter(adapter);
 		
 	}
 
@@ -68,14 +84,15 @@ public class DisplayPermissionsActivity extends ActionBarActivity {
 			return rootView;
 		}
 	}
-	
-	public void getPermissions(){
+	//Taken from evilone from stackoverflow
+	//(http://stackoverflow.com/questions/7937794/how-to-get-installed-applications-permissions)
+	public List<String> getPermissions(){
 		PackageManager pm = getPackageManager();
 		List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-
+		List<String> appPermissions = new ArrayList<String>();
 		for (ApplicationInfo applicationInfo : packages) {
-		   Log.d("test", "App: " + applicationInfo.name + " Package: " + applicationInfo.packageName);
-
+		   //Log.d("test", "App: " + applicationInfo.name + " Package: " + applicationInfo.packageName);
+			appPermissions.add("App: " + applicationInfo.name + " Package: " + applicationInfo.packageName);
 		   try {
 		      PackageInfo packageInfo = pm.getPackageInfo(applicationInfo.packageName, PackageManager.GET_PERMISSIONS);
 
@@ -84,14 +101,15 @@ public class DisplayPermissionsActivity extends ActionBarActivity {
 
 		      if(requestedPermissions != null) {
 		         for (int i = 0; i < requestedPermissions.length; i++) {
-		            Log.d("test", requestedPermissions[i]);
+		            //Log.d("test", requestedPermissions[i]);
+		        	 appPermissions.add(requestedPermissions[i]);
 		         }
 		      }
 		   } catch (NameNotFoundException e) {
 		      e.printStackTrace();
 		   }
 		}
-		
+		return appPermissions;
 	}
 	
 }

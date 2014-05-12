@@ -64,8 +64,6 @@ public class MainActivity extends ActionBarActivity {
     public void sendMessage(View view){
     	Intent intent = new Intent(this,DisplayPermissionsActivity.class);
     	startActivity(intent);
-    	
     }
-    
 }
 
