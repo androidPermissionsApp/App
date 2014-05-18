@@ -18,7 +18,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+
 public class DisplayPermissionsActivity extends ActionBarActivity {
+//	private ListView listview;
+//	private ArrayAdapter<String> adapter;
+//	private ArrayList<String> listNames;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,23 +33,6 @@ public class DisplayPermissionsActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-	//	List<String> testL = new ArrayList<String>();
-	//	testL.add("testString");
-	//	testL.add("secondTestThing");
-	//	testL.add("last string");
-	//	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
-	//	        android.R.layout.simple_list_item_1, testL);
-	//	ListView listView = (ListView) findViewById(R.id.listview);
-	//	listView.setAdapter(adapter);
-		
-		
-		
-		//List<String> appPermissions = getPermissions(); 
-		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
-		//        android.R.layout.simple_list_item_1, appPermissions);
-		//ListView listView = (ListView) findViewById(R.id.listview);
-		//listView.setAdapter(adapter);
-		
 	}
 
 	@Override
@@ -79,8 +66,18 @@ public class DisplayPermissionsActivity extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
+			final ArrayAdapter<String> adapter;
+			final ArrayList<String> listNames;
+			
 			View rootView = inflater.inflate(
 					R.layout.fragment_display_permissions, container, false);
+			
+			//Make sure this cast doesn't cause problems		
+			List<String> appPermissions = ((DisplayPermissionsActivity) getActivity()).getPermissions(); 
+			adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, appPermissions);
+			ListView listView = (ListView)rootView.findViewById(R.id.list2);
+		    listView.setAdapter(adapter);
+			
 			return rootView;
 		}
 	}
