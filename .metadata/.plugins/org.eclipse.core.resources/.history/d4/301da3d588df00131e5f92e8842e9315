@@ -73,9 +73,8 @@ public class DisplayPermissionsActivity extends ActionBarActivity {
 					R.layout.fragment_display_permissions, container, false);
 			
 			//Make sure this cast doesn't cause problems		
-			List<String> appNames = ((DisplayPermissionsActivity) getActivity()).getAppNames(); 
-			List<ArrayList<String>> appPermissions = ((DisplayPermissionsActivity) getActivity()).getPermissions(); 
-			adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, appNames);
+			List<String> appPermissions = ((DisplayPermissionsActivity) getActivity()).getPermissions(); 
+			adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, appPermissions);
 			ListView listView = (ListView)rootView.findViewById(R.id.list2);
 		    listView.setAdapter(adapter);
 			
@@ -88,7 +87,7 @@ public class DisplayPermissionsActivity extends ActionBarActivity {
 		PackageManager pm = getPackageManager();
 		List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 		for (ApplicationInfo applicationInfo : packages) {
-			appNames.add("App: " + applicationInfo.loadLabel(pm));
+			appNames.add("App: " + applicationInfo.loadLabel(pm) + " Package: " + applicationInfo.packageName);
 		}
 		return appNames;
 	}

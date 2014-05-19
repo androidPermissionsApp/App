@@ -88,7 +88,7 @@ public class DisplayPermissionsActivity extends ActionBarActivity {
 		PackageManager pm = getPackageManager();
 		List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 		for (ApplicationInfo applicationInfo : packages) {
-			appNames.add("App: " + applicationInfo.loadLabel(pm));
+			appNames.add("App: " + applicationInfo.loadLabel(pm) + " Package: " + applicationInfo.packageName);
 		}
 		return appNames;
 	}
