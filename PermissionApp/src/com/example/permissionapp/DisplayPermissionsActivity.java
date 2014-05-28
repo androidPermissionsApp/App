@@ -73,35 +73,22 @@ public class DisplayPermissionsActivity extends ActionBarActivity {
 					R.layout.fragment_display_permissions, container, false);
 			
 			//Make sure this cast doesn't cause problems		
-			List<String> appNames = ((DisplayPermissionsActivity) getActivity()).getAppNames(); 
-			List<ArrayList<String>> appPermissions = ((DisplayPermissionsActivity) getActivity()).getPermissions(); 
-			adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, appNames);
+			List<String> appPermissions = ((DisplayPermissionsActivity) getActivity()).getPermissions(); 
+			adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, appPermissions);
 			ListView listView = (ListView)rootView.findViewById(R.id.list2);
 		    listView.setAdapter(adapter);
 			
 			return rootView;
 		}
 	}
-	
-	public List<String> getAppNames(){
-		List<String> appNames = new ArrayList<String>();
-		PackageManager pm = getPackageManager();
-		List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-		for (ApplicationInfo applicationInfo : packages) {
-			appNames.add("App: " + applicationInfo.loadLabel(pm));
-		}
-		return appNames;
-	}
-	
-	
 	//Taken from evilone from stackoverflow
 	//(http://stackoverflow.com/questions/7937794/how-to-get-installed-applications-permissions)
-	public List<ArrayList<String>> getPermissions(){
+	public List<String> getPermissions(){
 		PackageManager pm = getPackageManager();
 		List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-		List<ArrayList<String>> appPermissions = new ArrayList<ArrayList<String>>();
+		List<String> appPermissions = new ArrayList<String>();
 		for (ApplicationInfo applicationInfo : packages) {
-			ArrayList<String> permissions = new ArrayList<String>();
+			appPermissions.add("App: " + applicationInfo.loadLabel(pm) + " Package: " + applicationInfo.packageName);
 		   try {
 		      PackageInfo packageInfo = pm.getPackageInfo(applicationInfo.packageName, PackageManager.GET_PERMISSIONS);
 
@@ -110,13 +97,12 @@ public class DisplayPermissionsActivity extends ActionBarActivity {
 
 		      if(requestedPermissions != null) {
 		         for (int i = 0; i < requestedPermissions.length; i++) {
-		        	 permissions.add(requestedPermissions[i]);
+		        	 appPermissions.add(requestedPermissions[i]);
 		         }
 		      }
 		   } catch (NameNotFoundException e) {
 		      e.printStackTrace();
 		   }
-		   appPermissions.add(permissions);
 		}
 		return appPermissions;
 	}
